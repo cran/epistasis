@@ -1,0 +1,23 @@
+import("Matrix", "parallel")
+
+importFrom( "tmvtnorm", "rtmvnorm.sparseMatrix", "ptmvnorm")
+importFrom( "glasso", "glasso")
+importFrom( "methods", "as")
+importFrom( "grDevices", "gray.colors", "terrain.colors")
+importFrom( "igraph", "graph.adjacency", "plot.igraph", "layout.circle", "layout.fruchterman.reingold" )
+importFrom( "graphics", "par", "plot", "legend")
+importFrom( "stats", "cor", "dnorm", "pnorm", "qnorm", "runif", "rnorm", "rchisq" )
+importFrom( "utils", "flush.console")
+
+export(episim)
+export(cutoffs)
+export(lower.upper)
+export(R.gibbs)
+export(R.approx)
+export(epistasis)
+export(episelect)
+
+S3method("plot","episim")
+S3method("print","episim")
+S3method("plot","epi")
+S3method("plot","episelect")
