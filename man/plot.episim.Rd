@@ -30,7 +30,6 @@ P. Behrouzi and E. C. Wit. Detecting Epistatic Selection with Partially Observed
 \dontrun{
 # Generating discrete ordinal data with "genome-like" graph structure
 data.sim <- episim(alpha = 0.01, beta = 0.02)
-
 plot( data.sim )
 }
 }

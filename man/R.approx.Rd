@@ -17,7 +17,7 @@ R.approx(y, Z = NULL, Sigma=NULL, rho = NULL, ncores = NULL )
 	\item{Z}{ A (\eqn{n \times p}) matrix which is a transformation of the data via the Gaussian copula. If \code{Z = NULL} internally calculates an initial value for \eqn{Z}.}
 	\item{Sigma}{The covariance matrix of the latent variable given the data. If \code{Sigma = NULL} the Sigma matrix is calculated internally with a desired penalty term, \code{rho}.}
 	\item{rho}{A (non-negative) regularization parameter to calculate \code{Sigma}. rho=0 means no regularization.}
-	\item{ncores}{If \code{ncores = NULL}, the algorithm internally detects number of available cores and run the calculations in parallel on (available cores - 1). Typical usage is to fix \code{ncores = 1} when \eqn{p} is small \eqn{( p < 500 )}, and \code{ncores = NULL} when \eqn{p} is very large.}
+	\item{ncores}{If \code{ncores = NULL}, the algorithm internally detects number of available cores and run the calculations in parallel on (available cores - 1). Typical usage is to fix \code{ncores = 1} when \eqn{p} is small \eqn{( p < 500 )}, and \code{ncores = NULL} when \eqn{p} is large.}
 }
 
 \value{
@@ -39,9 +39,8 @@ P. Behrouzi and E. C. Wit. Detecting Epistatic Selection with Partially Observed
 
 \examples{
 \dontrun{
-D <- episim(p=20, n=10, alpha = 0.01, beta = 0.2)
-
-R.approx(D$data, ncores=1)
+D <- episim(p = 100, n = 50, k = 3)
+R.approx(D$data)
 } 
 }
 

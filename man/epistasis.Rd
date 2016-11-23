@@ -1,7 +1,7 @@
 \name{epistasis}
 \alias{epistasis}
 
-\title{ Detecting epistatic selection }
+\title{ Detecting epistatic selection from multi-loci genotype data }
 
 \description{
 This is the main function of the \pkg{epistasis} package. Two methods are available to detect epistatic selection, including (1) approximation method, and (2) gibbs sampling within the Gaussian copula graphical model. Both methods are able to deal with missing genotypes.
@@ -17,7 +17,7 @@ epistasis(y, method = "approx", rho = NULL, n.rho = NULL, rho.ratio = NULL,
 	\item{method}{ Detecting epistatic selection with two methods: "gibbs" and "approx". The default method is "approx".}
 	\item{rho}{ A decreasing sequence of non-negative numbers that control the sparsity level. Leaving the input as \code{rho = NULL}, the program automatically computes a sequence of \code{rho} based on \code{n.rho} and \code{rho.ratio}. Users can also supply a decreasing sequence values to override this.}
 	\item{n.rho}{ The number of regularization parameters. The default value is \code{10}.}
-	\item{rho.ratio}{ Determines distance between the elements of \code{rho} sequence. A small value of \code{rho.ratio} results in a large distance between the elements of \code{rho} sequence. And a large value of \code{rho.ratio} results into a small distance between elements of \code{rho}. The default value is \code{0.2}.}
+	\item{rho.ratio}{ Determines distance between the elements of \code{rho} sequence. A small value of \code{rho.ratio} results in a large distance between the elements of \code{rho} sequence. And a large value of \code{rho.ratio} results into a small distance between elements of \code{rho}. The default value is \code{0.3}.}
 	\item{ncores}{ The number of cores to use for the calculations. Using \code{ncores = NULL} automatically detects number of available cores and runs the computations in parallel on (available cores - 1).}
 	\item{em.tol}{ A criteria to stop the EM iterations. The default value is .001. }
 	\item{em.iter}{ The number of EM iterations. The default value is 10.}
@@ -41,7 +41,7 @@ An object with S3 class \code{"epi"} is returned:
  \item{data}{ The \eqn{n} by \eqn{p} input data matrix. }
 }
 
-\note{ This function estimates the graph path . To select an optimal graph please refer to \code{\link{select}}.}
+\note{ This function estimates the graph path . To select an optimal graph please refer to \code{\link{episelect}}.}
 
 \author{ 
   Pariya Behrouzi and Ernst C. Wit \cr
@@ -60,14 +60,15 @@ An object with S3 class \code{"epi"} is returned:
 \examples{
 \dontrun{
 #simulate data
-D <- episim(p=20, n=10, alpha = 0.01, beta = 0.2)
+D <- episim(p=50, n=100, k= 3, adjacent = 3, alpha = 0.06 , beta = 0.06)
+plot(D)
 
 #epistasis path estimation using approx
-out1 <- epistasis(D$data)
+out1 <-  epistasis(D$data, method="approx", n.rho= 5)
 plot(out1)
 
 #epistasis path estimation using gibbs
-out2  <- epistasis(D$data, method= "gibbs")
+out2  <-  epistasis(D$data, method="gibbs", n.rho= 5, ncores= 1)
 plot(out2)
 }
 }

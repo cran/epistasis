@@ -63,13 +63,13 @@ episim = function( p = 90, n = 200, k = NULL, g = NULL, adjacent = NULL, alpha =
 	if(con.dist == "Mt")
 	{
 		if(is.null(d)) d = 3
-		z = rmvt(n,sigma, df = d)
+		z = rmvt(n=n, sigma = sigma, df = d)
 		sigmahat = cor(z)	
 	}
   
 	if(con.dist == "Mnorm")
 	{
-		z = rmvnorm(n, sigma)		
+		z = rmvnorm(n=n, sigma=sigma)		
 		sigmahat = cor(z)	
 	}
 

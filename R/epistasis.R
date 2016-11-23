@@ -1,5 +1,6 @@
 epistasis = function(y, method = "approx", rho = NULL, n.rho = NULL, rho.ratio = NULL, ncores = NULL, em.iter = 10, em.tol=.001, verbose = TRUE) 
 {
+	if(!is.matrix(y)) y <- as.matrix(y)
 	if(is.null(ncores)) ncores <- detectCores() - 1
 	if(is.null(em.tol)) em.tol = 0.001
 	if(is.null(em.iter)) em.iter = 10
@@ -114,7 +115,6 @@ epistasis = function(y, method = "approx", rho = NULL, n.rho = NULL, rho.ratio =
 	return(result)
 }
 
-
 #-----------------------------------------------------#
 #   		Plot for class "epi"      	              #
 #-----------------------------------------------------#
@@ -154,4 +154,20 @@ plot.epi = function( x, n.markers=NULL , ...)
 			plot(adj, vertex.color = vertex.color, edge.color='gray40', vertex.size = 7, vertex.label = NA , vertex.label.dist = NULL)
 	}
 	if(length(memberships) > 1) legend("bottomright", paste("group", 1:length(n.markers)), cex=0.7, col= color, pch=rep(20,10))		
+}
+
+
+#-----------------------------------------------------#
+#   		Summary for class "epi"        		      #
+#-----------------------------------------------------#
+
+print.epi = function(x, ...){
+	cat("Estimated a graph path for", length(x$rho), "penalty term(s)" , "\n")
+	cat("Number of variables: p =", ncol(x$data), "\n")
+	cat("Number of sample size: n =", nrow(x$data), "\n")
+	cat("Number of levels in the data: k =", length(unique(sort(as.matrix(x$data)))), "\n")
+	sparsLevel <- sapply(1:length(x$rho), function(i) sum(x$Theta[[i]])/ncol(x$data)/(ncol(x$data)-1))
+    cat("Sparsity level:", sparsLevel,"\n")
+	cat("To plot the graph path consider plot() function \n")
+	cat("To select an optimal graph consider episelect() function \n")
 }

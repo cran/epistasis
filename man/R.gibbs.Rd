@@ -48,8 +48,7 @@ P. Behrouzi and E. C. Wit. Detecting Epistatic Selection with Partially Observed
 
 \examples{
 \dontrun{
-D <- episim(p=20, n=10, alpha = 0.01, beta = 0.2)
-
+D <- episim(p = 100, n = 50, k = 3)
 R.gibbs(D$data, ncores=1)
 } 
 }

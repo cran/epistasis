@@ -31,7 +31,17 @@ It is publicly available at http://publiclines.versailles.inra.fr/page/8
 }
 
 \examples{
+\dontrun{
 data(CviCol)
+
+# Graph path
+epi <- epistasis(CviCol, method="approx", rho.ratio=0.2)
+epi
+plot(epi)
+
+sel <- episelect(epi)
+plot(sel)
+}
 }
 
 \keyword{datasets}

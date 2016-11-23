@@ -1,28 +1,23 @@
-episelect = function( epi.object, ebic.gamma = 0.5, EM.select = FALSE, ncores = NULL )
+episelect = function(epi.object, criteria = NULL, ebic.gamma = 0.5, loglik_Y = FALSE, ncores = NULL)
 {
 	if(is.null(ncores)) ncores <- detectCores() - 1
-	
-	if((EM.select) && (is.null(epi.object$Z[[1]])) ) #Gibbs
-	{
-		ncores = 1
-		EM.select = FALSE
-	}
-	
-	if(EM.select)
+	if(is.null(criteria)) criteria <- "ebic"
+	if(!loglik_Y) ncores = 1
+	if(loglik_Y)
 	{
 		lower.upper = lower.upper(epi.object$data)
 	}else{
 		lower.upper = NULL
 	}
 	
-	sel	= model.selection( epi.object, lower.upper=lower.upper, ebic.gamma=ebic.gamma, ncores = ncores, EM.select = EM.select, verbose = TRUE)
+	sel	= model.selection( epi.object, criterion = criteria, lower.upper=lower.upper, ebic.gamma=ebic.gamma, ncores = ncores, loglik_Y = loglik_Y, verbose = TRUE)
 	
 	class(sel) = "episelect"
 	return(sel)
 }
 
 #-----------------------------------------------------#
-#   		Plot for class "episelect"      			  #
+#   		Plot for class "episelect"      		  #
 #-----------------------------------------------------#
 readkey <- function()
 {

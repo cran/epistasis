@@ -8,12 +8,12 @@ initialize = function(y, rho = NULL, n_rho = NULL, rho_ratio = NULL, ncores=NULL
 	if(is.null(rho))
 	{
 		if(is.null(n_rho)) n_rho = 10
-		if(is.null(rho_ratio)) rho_ratio = 0.15
+		if(is.null(rho_ratio)) rho_ratio = 0.3
 		cr = cor(y, method="spearman")
 		cr[is.na(cr)] <- 0
 		S  = cr - diag(p)
 		rho_max = max(max(S),-min(S))
-		if(rho_max == 1) rho_max = 0.75
+		if(rho_max == 1) rho_max = 0.7
 		rho_min = rho_ratio * rho_max
 		rho = exp(seq(log(rho_max), log(rho_min), length = n_rho))
 		rm(cr, S, rho_max, rho_min, rho_ratio)

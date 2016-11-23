@@ -59,8 +59,11 @@ P. Behrouzi and E. C. Wit. Detecting Epistatic Selection with Partially Observed
 \examples{
 \dontrun{
 #genome-like graph structure
-data.sim <- episim(alpha = 0.01, beta = 0.02)
-#genome-like graph structure with more edges between variables in different groups
-data.sim <- episim(alpha = 0.02, beta = 0.03)
+sim1 <- episim(alpha = 0.01, beta = 0.02)
+plot(sim1)
+
+#genome-like graph structure with more edges between variables in a same or different groups
+sim2 <- episim(adjacent = 3, alpha = 0.02 , beta = 0.03)
+plot(sim2)
 }
 }
